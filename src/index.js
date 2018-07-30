@@ -378,8 +378,7 @@ module.exports = {
 				// Call the action or alias
 				.then(() => {
 					if (alias.action)
-						return this.callAction(route, alias.action, req, res, req.$params);
-
+						return this.callAction(route, alias.action, req, res, req.$params).catch(err=>this.sendError(req, res, err));
 					// Call custom alias handler
 					this.logger.info(`   Call custom function in '${req.$alias.method} ${req.$alias.path}' alias`);
 					alias.handler.call(this, req, res, err => {
